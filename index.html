@@ -88,12 +88,12 @@ button {
 
 <script>
 (function(){
-  emailjs.init("PUBLIC_KEY_AWAK"); // <-- GANTI dengan public key EmailJS
+  emailjs.init("63eS7AoUU_bR-VqJB"); // <-- GANTI dengan public key EmailJS
 })();
 
 // Hantar email setiap jawapan negatif
 function notifyOwner(answer) {
-  emailjs.send("SERVICE_ID_AWAK", "TEMPLATE_ID_AWAK", {
+  emailjs.send("sHZtymDslOGff-w0yem50", "template_oqw7ru3", {
     message: answer,
     time: new Date().toLocaleString()
   })
@@ -166,7 +166,7 @@ function finalQ() {
 
 // Redirect ke WhatsApp
 function goWhatsApp() {
-  const phoneNumber = "601XXXXXXXXX"; // <-- GANTI nombor awak
+  const phoneNumber = "60178249056"; // <-- GANTI nombor awak
   const text = encodeURIComponent("Hi, saya Ashraf. Saya pilih Nak untuk iftar!");
   window.location.href = `https://wa.me/${phoneNumber}?text=${text}`;
 }
