@@ -83,15 +83,16 @@ button {
 
 <div class="card" id="card"></div>
 
-<!-- EmailJS -->
+<!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <script>
 (function(){
-  emailjs.init("PUBLIC_KEY_AWAK"); // GANTI
+  emailjs.init("PUBLIC_KEY_AWAK"); // <-- GANTI PUBLIC KEY EMAILJS
 })();
 
 function notifyOwner(answer) {
+  // Hantar email melalui EmailJS
   emailjs.send("SERVICE_ID_AWAK", "TEMPLATE_ID_AWAK", {
     message: answer,
     time: new Date().toLocaleString()
@@ -103,6 +104,7 @@ function notifyOwner(answer) {
   });
 }
 
+// Animasi fade antara soalan
 function fadeChange(content) {
   const card = document.getElementById("card");
   card.classList.add("fade-out");
@@ -113,6 +115,7 @@ function fadeChange(content) {
   }, 400);
 }
 
+// Start
 function start() {
   fadeChange(`
     <h2>Hi Ashraf... 💌</h2>
@@ -122,6 +125,7 @@ function start() {
   `);
 }
 
+// Question 2
 function q2() {
   fadeChange(`
     <h2>Sebelum saya teruskan...</h2>
@@ -131,15 +135,17 @@ function q2() {
   `);
 }
 
+// Question 3
 function q3() {
   fadeChange(`
     <h2>Status awak sekarang...</h2>
-    <p>Dah move on atau masih gamon?</p>
+    <p>Dah berpunya? Dah move on atau masih gamon?</p>
     <button class="primary" onclick="q4()">Dah move on & Single</button>
     <button class="secondary" onclick="endFlow('Masih teringat ex / tak ready')">Masih teringat ex / tak ready</button>
   `);
 }
 
+// Question 4
 function q4() {
   fadeChange(`
     <h2>Jujur eh...</h2>
@@ -149,6 +155,7 @@ function q4() {
   `);
 }
 
+// Final Question
 function finalQ() {
   fadeChange(`
     <h2>Alang-alang dah sampai sini...</h2>
@@ -158,14 +165,16 @@ function finalQ() {
   `);
 }
 
+// Redirect ke WhatsApp
 function goWhatsApp() {
-  const phoneNumber = "601XXXXXXXXX"; // GANTI
+  const phoneNumber = "601XXXXXXXXX"; // <-- GANTI NO WHATSAPP AWAK
   const text = encodeURIComponent("Hi, saya Ashraf. Saya pilih Nak untuk iftar!");
   window.location.href = `https://wa.me/${phoneNumber}?text=${text}`;
 }
 
+// End Flow for negative answers
 function endFlow(answer) {
-  notifyOwner(answer);
+  notifyOwner(answer); // Hantar email
   fadeChange(`
     <h2>${answer}</h2>
     <div class="footer">Terima kasih sebab jujur 🤍</div>
@@ -173,6 +182,7 @@ function endFlow(answer) {
 }
 
 start();
+
 </script>
 
 </body>
