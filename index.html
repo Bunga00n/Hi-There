@@ -137,7 +137,7 @@ showContent(`
 function finalQuestion(){
 showContent(`
 <h2>Alang-alang dah sampai sini...</h2>
-<p>Awak nak tak kita Iftar sekali nanti?<br>Saja borak-borak 😊</p>
+<p>Nak iftar together tak?<br>Borak-borak 😊</p>
 <button class="btn-primary" onclick="goWhatsApp()">Nak!</button>
 <button class="btn-secondary" onclick="endFlow('Soalan Final: Ajakan Iftar','Tolak ajakan iftar')">Lain kali lah</button>
 `);
@@ -157,7 +157,7 @@ if(reason==="Ya, sedang kenal orang")
 message="Faham. Semoga urusan awak dipermudahkan. Bye!";
 
 if(reason==="Masih teringat ex / tak ready")
-message="Baik, Fighting!. ";
+message="Baik, Fighting! ";
 
 if(reason==="Tak berminat")
 message="Okay, faham. All the best!";
@@ -174,7 +174,7 @@ showContent(`
 // WHATSAPP REDIRECT
 function goWhatsApp(){
 const phoneNumber="60178249056"; // TUKAR NUMB0R NI
-const text=encodeURIComponent("Enter your message here");
+const text=encodeURIComponent("Boleh juga Naimah");
 window.location.href=`https://wa.me/${phoneNumber}?text=${text}`;
 }
 
