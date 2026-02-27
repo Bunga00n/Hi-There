@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hi Awak 💌</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Awak 💖</title>
 
 <style>
 body {
   margin: 0;
+  text-align: center;
   font-family: 'Comic Sans MS', cursive;
-  background: linear-gradient(-45deg, #ffd6ec, #ffe6f7, #fff0f8, #ffd1e8);
+  background: linear-gradient(-45deg, #ff9ecf, #ffcce6, #ffe6f2, #ffd6f5);
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  overflow: hidden;
 }
 
 @keyframes gradientBG {
@@ -23,86 +21,108 @@ body {
   100% {background-position: 0% 50%;}
 }
 
-.card {
-  background: white;
-  padding: 40px;
-  border-radius: 25px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(255,105,180,0.3);
-  width: 90%;
-  max-width: 400px;
+.container {
+  margin-top: 120px;
 }
 
 h2 {
-  color: #ff4da6;
+  color: white;
+  font-size: 28px;
+  animation: fadeIn 2s ease;
 }
 
 button {
   padding: 12px 25px;
   margin: 10px;
-  border-radius: 20px;
-  border: none;
   font-size: 16px;
+  border-radius: 30px;
+  border: none;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .yesBtn {
-  background-color: #ff66b2;
-  color: white;
-}
-
-.yesBtn:hover {
-  transform: scale(1.1);
-}
-
-.noBtn {
-  background-color: #ffe6f2;
+  background-color: white;
   color: #ff4da6;
 }
 
+.yesBtn:hover {
+  transform: scale(1.2);
+}
+
+.noBtn {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.heart {
+  position: fixed;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-800px); opacity: 0; }
+}
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h2 id="question">Awak nak kenal saya tak? 🥺💗</h2>
-  <img id="gif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" width="200"><br>
-  <button class="yesBtn" onclick="yes1()">Yes 💖</button>
-  <button class="noBtn" id="noBtn" onclick="noClick()">No 🙈</button>
+<div class="container">
+<h2 id="question">Awak nak kenal saya tak? 🥺💗</h2>
+
+<button class="yesBtn" onclick="yes1()">Nak 💕</button>
+<button class="noBtn" onmouseover="moveButton(this)">Tak Nak 🙈</button>
 </div>
 
 <script>
-let noSize = 16;
-
-function noClick() {
-  noSize -= 2;
-  document.getElementById("noBtn").style.fontSize = noSize + "px";
-  document.getElementById("question").innerHTML =
-  "Eh jangan la tekan NO 😭 cuba fikir balik...";
-  if(noSize <= 8){
-    document.getElementById("noBtn").style.display = "none";
-  }
+function moveButton(btn) {
+  btn.style.position = "absolute";
+  btn.style.left = Math.random() * window.innerWidth + "px";
+  btn.style.top = Math.random() * window.innerHeight + "px";
 }
 
 function yes1() {
-  document.querySelector(".card").innerHTML = `
-    <h2>Serius ni? 😳✨</h2>
-    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" width="200"><br>
-    <button class="yesBtn" onclick="yes2()">Serius 💕</button>
-    <button class="noBtn" onclick="alert('Alahhh jangan laa 😭')">Errr 🙃</button>
+  document.body.innerHTML = `
+  <div class="container">
+  <h2>Serius ni? Jangan prank tau 😳✨</h2>
+  <button class="yesBtn" onclick="yes2()">Serius 💖</button>
+  <button class="noBtn" onmouseover="moveButton(this)">Ehh tak 😜</button>
+  </div>
   `;
+  createHearts();
 }
 
 function yes2() {
-  document.querySelector(".card").innerHTML = `
-    <h2>Yeayyy 🥰💞</h2>
-    <p>Nanti saya WhatsApp awak yaaa ☕💌</p>
-    <button class="yesBtn" onclick="window.location.href='https://wa.me/601XXXXXXXXX'">
-      Click sini 💬
-    </button>
+  document.body.innerHTML = `
+  <div class="container">
+  <h2>Yeayyy 🥰💞<br>Okay officially saya ajak awak keluar minum kopi ☕✨</h2>
+  </div>
   `;
+  createHearts();
+}
+
+function createHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }, 300);
 }
 </script>
 
