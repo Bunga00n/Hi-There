@@ -1,96 +1,113 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hi Awak 🌸</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: 'Comic Sans MS', cursive;
-      margin-top: 100px;
-      background: linear-gradient(135deg, #ffd6ec, #ffeef7);
-      overflow: hidden;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Awak 💖</title>
 
-    h2 {
-      color: #ff4da6;
-      font-size: 28px;
-    }
+<style>
+body {
+  margin: 0;
+  text-align: center;
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(-45deg, #ff9ecf, #ffcce6, #ffe6f2, #ffd6f5);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  overflow: hidden;
+}
 
-    button {
-      padding: 12px 25px;
-      margin: 10px;
-      font-size: 16px;
-      border-radius: 20px;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
 
-    .yesBtn {
-      background-color: #ff66b2;
-      color: white;
-    }
+.container {
+  margin-top: 120px;
+}
 
-    .yesBtn:hover {
-      background-color: #ff3385;
-      transform: scale(1.1);
-    }
+h2 {
+  color: white;
+  font-size: 28px;
+  animation: fadeIn 2s ease;
+}
 
-    .noBtn {
-      background-color: white;
-      color: #ff66b2;
-      border: 2px solid #ff66b2;
-    }
+button {
+  padding: 12px 25px;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .noBtn:hover {
-      background-color: #ffe6f2;
-    }
+.yesBtn {
+  background-color: white;
+  color: #ff4da6;
+}
 
-    .heart {
-      position: fixed;
-      color: pink;
-      animation: floatUp 5s linear infinite;
-    }
+.yesBtn:hover {
+  transform: scale(1.2);
+}
 
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-800px); opacity: 0; }
-    }
-  </style>
+.noBtn {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.heart {
+  position: fixed;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-800px); opacity: 0; }
+}
+</style>
 </head>
+
 <body>
 
+<div class="container">
 <h2 id="question">Awak nak kenal saya tak? 🥺💗</h2>
 
-<button class="yesBtn" onclick="yes1()">Yes 💖</button>
-<button class="noBtn" onclick="no1()">No 🙈</button>
+<button class="yesBtn" onclick="yes1()">Nak 💕</button>
+<button class="noBtn" onmouseover="moveButton(this)">Tak Nak 🙈</button>
+</div>
 
 <script>
-function no1() {
-  document.getElementById("question").innerHTML =
-  "Alahhh 😢 tapi saya dah susun ayat comel tau...";
+function moveButton(btn) {
+  btn.style.position = "absolute";
+  btn.style.left = Math.random() * window.innerWidth + "px";
+  btn.style.top = Math.random() * window.innerHeight + "px";
 }
 
 function yes1() {
-  document.getElementById("question").innerHTML =
-  "Serius ni? Jangan prank saya tau 😳✨";
-
-  document.body.innerHTML += `
-    <br>
-    <button class="yesBtn" onclick="yes2()">Serius 💕</button>
-    <button class="noBtn" onclick="no2()">Errr 🙃</button>
+  document.body.innerHTML = `
+  <div class="container">
+  <h2>Serius ni? Jangan prank tau 😳✨</h2>
+  <button class="yesBtn" onclick="yes2()">Serius 💖</button>
+  <button class="noBtn" onmouseover="moveButton(this)">Ehh tak 😜</button>
+  </div>
   `;
-}
-
-function yes2() {
-  document.body.innerHTML =
-  "<h2>Yeayyy 🥰💞<br>Saya officially ajak awak minum kopi nanti ☕✨</h2>";
   createHearts();
 }
 
-function no2() {
-  document.body.innerHTML =
-  "<h2>Aik... buat saya nervous je tau 😅💓</h2>";
+function yes2() {
+  document.body.innerHTML = `
+  <div class="container">
+  <h2>Yeayyy 🥰💞<br>Okay officially saya ajak awak keluar minum kopi ☕✨</h2>
+  </div>
+  `;
+  createHearts();
 }
 
 function createHearts() {
