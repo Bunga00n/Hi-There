@@ -1,109 +1,178 @@
 <!DOCTYPE html>
-<html>
+<html lang="ms">
 <head>
-<title>Hi Awak 💌</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Ashraf 💌</title>
 
 <style>
 body {
   margin: 0;
-  font-family: 'Comic Sans MS', cursive;
-  background: linear-gradient(-45deg, #ffd6ec, #ffe6f7, #fff0f8, #ffd1e8);
-  background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #fff5f8;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-}
-
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+  text-align: center;
 }
 
 .card {
   background: white;
-  padding: 40px;
-  border-radius: 25px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(255,105,180,0.3);
+  padding: 30px;
+  border-radius: 20px;
   width: 90%;
   max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 h2 {
-  color: #ff4da6;
+  color: #d63384;
+  font-weight: 500;
+}
+
+p {
+  color: #555;
+  font-size: 14px;
 }
 
 button {
-  padding: 12px 25px;
-  margin: 10px;
-  border-radius: 20px;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 12px;
   border: none;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s ease;
 }
 
-.yesBtn {
-  background-color: #ff66b2;
-  color: white;
+.primary {
+  background: #f8c8dc;
+  color: #6a1b4d;
 }
 
-.yesBtn:hover {
-  transform: scale(1.1);
+.primary:hover {
+  background: #f4b6cf;
 }
 
-.noBtn {
-  background-color: #ffe6f2;
-  color: #ff4da6;
+.secondary {
+  background: #f1f1f1;
+  color: #555;
 }
 
+.secondary:hover {
+  background: #e4e4e4;
+}
+
+.footer {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #aaa;
+}
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h2 id="question">Awak nak kenal saya tak? 🥺💗</h2>
-  <img id="gif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" width="200"><br>
-  <button class="yesBtn" onclick="yes1()">Yes 💖</button>
-  <button class="noBtn" id="noBtn" onclick="noClick()">No 🙈</button>
-</div>
+<div class="card" id="card"></div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <script>
-let noSize = 16;
+(function(){
+  emailjs.init("PUBLIC_KEY_AWAK"); // GANTI
+})();
 
-function noClick() {
-  noSize -= 2;
-  document.getElementById("noBtn").style.fontSize = noSize + "px";
-  document.getElementById("question").innerHTML =
-  "Eh jangan la tekan NO 😭 cuba fikir balik...";
-  if(noSize <= 8){
-    document.getElementById("noBtn").style.display = "none";
-  }
+function notifyOwner(answer) {
+  emailjs.send("SERVICE_ID_AWAK", "TEMPLATE_ID_AWAK", {
+    message: answer,
+    time: new Date().toLocaleString()
+  })
+  .then(function(response) {
+    console.log("Email berjaya dihantar!");
+  }, function(error) {
+    console.log("Email gagal dihantar", error);
+  });
 }
 
-function yes1() {
-  document.querySelector(".card").innerHTML = `
-    <h2>Serius ni? 😳✨</h2>
-    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" width="200"><br>
-    <button class="yesBtn" onclick="yes2()">Serius 💕</button>
-    <button class="noBtn" onclick="alert('Alahhh jangan laa 😭')">Errr 🙃</button>
-  `;
+function fadeChange(content) {
+  const card = document.getElementById("card");
+  card.classList.add("fade-out");
+
+  setTimeout(() => {
+    card.innerHTML = content;
+    card.classList.remove("fade-out");
+  }, 400);
 }
 
-function yes2() {
-  document.querySelector(".card").innerHTML = `
-    <h2>Yeayyy 🥰💞</h2>
-    <p>Nanti saya WhatsApp awak yaaa ☕💌</p>
-    <button class="yesBtn" onclick="window.location.href='https://wa.me/601XXXXXXXXX'">
-      Click sini 💬
-    </button>
-  `;
+function start() {
+  fadeChange(`
+    <h2>Hi Ashraf... 💌</h2>
+    <p>Saya ada benda nak tanya, tapi sebelum tu ada beberapa soalan.<br><br>Awak okay ke?</p>
+    <button class="primary" onclick="q2()">Okay, jom!</button>
+    <button class="secondary" onclick="endFlow('Tidak berminat')">Tidak berminat</button>
+  `);
 }
+
+function q2() {
+  fadeChange(`
+    <h2>Sebelum saya teruskan...</h2>
+    <p>Awak sedang berkenalan dengan sesiapa ke sekarang?</p>
+    <button class="primary" onclick="endFlow('Ya, sedang kenal orang')">Ya, sedang kenal orang</button>
+    <button class="secondary" onclick="q3()">Tidak</button>
+  `);
+}
+
+function q3() {
+  fadeChange(`
+    <h2>Status awak sekarang...</h2>
+    <p>Dah move on atau masih gamon?</p>
+    <button class="primary" onclick="q4()">Dah move on & Single</button>
+    <button class="secondary" onclick="endFlow('Masih teringat ex / tak ready')">Masih teringat ex / tak ready</button>
+  `);
+}
+
+function q4() {
+  fadeChange(`
+    <h2>Jujur eh...</h2>
+    <p>Awak masih berminat tak nak berkenalan dengan saya?</p>
+    <button class="primary" onclick="finalQ()">Masih berminat</button>
+    <button class="secondary" onclick="endFlow('Rasanya tak perlu kot')">Rasanya tak perlu kot</button>
+  `);
+}
+
+function finalQ() {
+  fadeChange(`
+    <h2>Alang-alang dah sampai sini...</h2>
+    <p>Awak nak tak kita Iftar sekali nanti?<br>Saja borak-borak.</p>
+    <button class="primary" onclick="goWhatsApp()">Nak!</button>
+    <button class="secondary" onclick="endFlow('Lain kali lah')">Lain kali lah</button>
+  `);
+}
+
+function goWhatsApp() {
+  const phoneNumber = "601XXXXXXXXX"; // GANTI
+  const text = encodeURIComponent("Hi, saya Ashraf. Saya pilih Nak untuk iftar!");
+  window.location.href = `https://wa.me/${phoneNumber}?text=${text}`;
+}
+
+function endFlow(answer) {
+  notifyOwner(answer);
+  fadeChange(`
+    <h2>${answer}</h2>
+    <div class="footer">Terima kasih sebab jujur 🤍</div>
+  `);
+}
+
+start();
 </script>
 
 </body>
