@@ -93,7 +93,7 @@ button {
 
 // Hantar email setiap jawapan negatif
 function notifyOwner(answer) {
-  emailjs.send("sHZtymDslOGff-w0yem50", "template_oqw7ru3", {
+  emailjs.send("service_5b4v71w", "service_5b4v71w", {
     message: answer,
     time: new Date().toLocaleString()
   })
@@ -162,13 +162,6 @@ function finalQ() {
     <button class="primary" onclick="goWhatsApp()">Nak!</button>
     <button class="secondary" onclick="endFlow('Lain kali lah')">Lain kali lah</button>
   `);
-}
-
-// Redirect ke WhatsApp
-function goWhatsApp() {
-  const phoneNumber = "60178249056"; // <-- GANTI nombor awak
-  const text = encodeURIComponent("Hi, saya Ashraf. Saya pilih Nak untuk iftar!");
-  window.location.href = `https://wa.me/${phoneNumber}?text=${text}`;
 }
 
 // End flow untuk jawapan negatif
