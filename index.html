@@ -1,176 +1,156 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hi Ashraf 💌</title>
+<title>Untuk Ashraf 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <style>
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #fff5f8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+background:linear-gradient(135deg,#ffe6f0,#fff0f5);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
 }
 
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+.container{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+max-width:400px;
+width:100%;
+transition:all .4s ease;
 }
 
-.fade-out {
-  opacity: 0;
-  transform: translateY(10px);
+h2{font-weight:500;margin-bottom:20px;color:#444;}
+p{margin-bottom:20px;color:#666;font-size:14px;line-height:1.6;}
+
+button{
+display:block;
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:30px;
+border:none;
+cursor:pointer;
+font-size:14px;
+transition:.3s;
 }
 
-h2 {
-  color: #d63384;
-  font-weight: 500;
-}
+.btn-primary{background:#ffb6c1;color:white;}
+.btn-primary:hover{background:#ff9eb5;}
+.btn-secondary{background:#f3f3f3;color:#555;}
+.btn-secondary:hover{background:#e0e0e0;}
 
-p {
-  color: #555;
-  font-size: 14px;
-}
-
-button {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 12px;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.primary {
-  background: #f8c8dc;
-  color: #6a1b4d;
-}
-
-.primary:hover {
-  background: #f4b6cf;
-}
-
-.secondary {
-  background: #f1f1f1;
-  color: #555;
-}
-
-.secondary:hover {
-  background: #e4e4e4;
-}
-
-.footer {
-  margin-top: 15px;
-  font-size: 12px;
-  color: #aaa;
-}
+.fade{opacity:0;transform:translateY(10px);}
+.show{opacity:1;transform:translateY(0);transition:all .4s ease;}
 </style>
 </head>
 
 <body>
 
-<div class="card" id="card"></div>
-
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<div class="container show" id="content"></div>
 
 <script>
 (function(){
-  emailjs.init("63eS7AoUU_bR-VqJB"); // <-- GANTI dengan public key EmailJS
+emailjs.init("63eS7AoUU_bR-VqJB");
 })();
 
-// Hantar email setiap jawapan negatif
-function notifyOwner(answer) {
-  emailjs.send("service_5b4v71w", "service_5b4v71w", {
-    message: answer,
-    time: new Date().toLocaleString()
-  })
-  .then(function(response) {
-    console.log("Email berjaya dihantar!");
-  }, function(error) {
-    console.log("Email gagal dihantar", error);
-  });
+function sendNotification(message){
+emailjs.send("service_5b4v71w","template_oqw7ru3",{message:message});
 }
 
-// Fungsi animasi fade
-function fadeChange(content) {
-  const card = document.getElementById("card");
-  card.classList.add("fade-out");
-  setTimeout(() => {
-    card.innerHTML = content;
-    card.classList.remove("fade-out");
-  }, 400);
+function showContent(html){
+const content=document.getElementById("content");
+content.classList.remove("show");
+content.classList.add("fade");
+
+setTimeout(()=>{
+content.innerHTML=html;
+content.classList.remove("fade");
+content.classList.add("show");
+},300);
 }
 
-// Start
-function start() {
-  fadeChange(`
-    <h2>Hi Ashraf... 💌</h2>
-    <p>Saya ada benda nak tanya, tapi sebelum tu ada beberapa soalan.<br><br>Awak okay ke?</p>
-    <button class="primary" onclick="q2()">Okay, jom!</button>
-    <button class="secondary" onclick="endFlow('Tidak berminat')">Tidak berminat</button>
-  `);
+function start(){
+showContent(`
+<h2>Hi Ashraf... 💌</h2>
+<p>Saya ada benda nak tanya,<br>tapi sebelum tu ada beberapa soalan.<br><br>Awak okay ke?</p>
+<button class="btn-primary" onclick="question2()">Okay, jom!</button>
+<button class="btn-secondary" onclick="endFlow('Tidak berminat dari awal')">Tidak berminat</button>
+`);
 }
 
-// Question 2
-function q2() {
-  fadeChange(`
-    <h2>Sebelum saya teruskan...</h2>
-    <p>Awak sedang berkenalan dengan sesiapa ke sekarang?</p>
-    <button class="primary" onclick="endFlow('Ya, sedang kenal orang')">Ya, sedang kenal orang</button>
-    <button class="secondary" onclick="q3()">Tidak</button>
-  `);
+function question2(){
+showContent(`
+<h2>Sebelum saya teruskan...</h2>
+<p>Awak sedang berkenalan dengan sesiapa ke sekarang?</p>
+<button class="btn-primary" onclick="endFlow('Sedang kenal orang lain')">Ya, sedang kenal orang</button>
+<button class="btn-secondary" onclick="question3()">Tidak</button>
+`);
 }
 
-// Question 3
-function q3() {
-  fadeChange(`
-    <h2>Status awak sekarang...</h2>
-    <p>Dah berpunya? Dah move on atau masih gamon?</p>
-    <button class="primary" onclick="q4()">Dah move on & Single</button>
-    <button class="secondary" onclick="endFlow('Masih teringat ex / tak ready')">Masih teringat ex / tak ready</button>
-  `);
+function question3(){
+showContent(`
+<h2>Status awak sekarang...</h2>
+<p>Dah berpunya? Dah move on atau masih gamon?</p>
+<button class="btn-primary" onclick="question4()">Dah move on & Single</button>
+<button class="btn-secondary" onclick="endFlow('Masih teringat ex / tak ready')">Masih teringat ex/tak ready</button>
+`);
 }
 
-// Question 4
-function q4() {
-  fadeChange(`
-    <h2>Jujur eh...</h2>
-    <p>Awak masih berminat tak nak berkenalan dengan saya?</p>
-    <button class="primary" onclick="finalQ()">Masih berminat</button>
-    <button class="secondary" onclick="endFlow('Rasanya tak perlu kot')">Rasanya tak perlu kot</button>
-  `);
+function question4(){
+showContent(`
+<h2>Jujur eh...</h2>
+<p>Awak masih berminat tak nak berkenalan dengan saya?</p>
+<button class="btn-primary" onclick="finalQuestion()">Masih berminat</button>
+<button class="btn-secondary" onclick="endFlow('Tak berminat untuk kenal')">Rasanya tak perlu kot</button>
+`);
 }
 
-// Final Question
-function finalQ() {
-  fadeChange(`
-    <h2>Alang-alang dah sampai sini...</h2>
-    <p>Awak nak tak kita Iftar sekali nanti?<br>Saja borak-borak.</p>
-    <button class="primary" onclick="goWhatsApp()">Nak!</button>
-    <button class="secondary" onclick="endFlow('Lain kali lah')">Lain kali lah</button>
-  `);
+function finalQuestion(){
+showContent(`
+<h2>Alang-alang dah sampai sini...</h2>
+<p>Awak nak tak kita Iftar sekali nanti?<br>Saja borak-borak 😊</p>
+<button class="btn-primary" onclick="goWhatsApp()">Nak!</button>
+<button class="btn-secondary" onclick="endFlow('Tolak ajakan iftar')">Lain kali lah</button>
+`);
 }
 
-// End flow untuk jawapan negatif
-function endFlow(answer) {
-  notifyOwner(answer); // Hantar email
-  fadeChange(`
-    <h2>${answer}</h2>
-    <div class="footer">Terima kasih sebab jujur 🤍</div>
-  `);
+function endFlow(reason){
+sendNotification("Ashraf pilih jawapan negatif: "+reason);
+
+let message="";
+if(reason==="Tidak berminat dari awal")
+message="Terima kasih sebab jujur. Take care!";
+if(reason==="Sedang kenal orang lain")
+message="Faham. Semoga urusan awak dipermudahkan. Bye!";
+if(reason==="Masih teringat ex / tak ready")
+message="Terima kasih sebab terus-terang. Saya hargai.";
+if(reason==="Tak berminat untuk kenal")
+message="Okay, faham. All the best!";
+if(reason==="Tolak ajakan iftar")
+message="Okay, no problem. Maybe next time.";
+
+showContent(`
+<h2>Terima kasih 💗</h2>
+<p>${message}</p>
+`);
+}
+
+function goWhatsApp(){
+const phoneNumber="60123456789"; // TUKAR NUMB0R NI
+const text=encodeURIComponent("Hi, saya Ashraf. Saya pilih Nak untuk iftar!");
+window.location.href=`https://wa.me/${phoneNumber}?text=${text}`;
 }
 
 start();
