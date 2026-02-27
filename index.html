@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hi Awak 🌸</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Comic Sans MS', cursive;
+      margin-top: 100px;
+      background: linear-gradient(135deg, #ffd6ec, #ffeef7);
+      overflow: hidden;
+    }
 
+    h2 {
+      color: #ff4da6;
+      font-size: 28px;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .yesBtn {
+      background-color: #ff66b2;
+      color: white;
+    }
+
+    .yesBtn:hover {
+      background-color: #ff3385;
+      transform: scale(1.1);
+    }
+
+    .noBtn {
+      background-color: white;
+      color: #ff66b2;
+      border: 2px solid #ff66b2;
+    }
+
+    .noBtn:hover {
+      background-color: #ffe6f2;
+    }
+
+    .heart {
+      position: fixed;
+      color: pink;
+      animation: floatUp 5s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-800px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<h2 id="question">Awak nak kenal saya tak? 🥺💗</h2>
+
+<button class="yesBtn" onclick="yes1()">Yes 💖</button>
+<button class="noBtn" onclick="no1()">No 🙈</button>
+
+<script>
+function no1() {
+  document.getElementById("question").innerHTML =
+  "Alahhh 😢 tapi saya dah susun ayat comel tau...";
+}
+
+function yes1() {
+  document.getElementById("question").innerHTML =
+  "Serius ni? Jangan prank saya tau 😳✨";
+
+  document.body.innerHTML += `
+    <br>
+    <button class="yesBtn" onclick="yes2()">Serius 💕</button>
+    <button class="noBtn" onclick="no2()">Errr 🙃</button>
+  `;
+}
+
+function yes2() {
+  document.body.innerHTML =
+  "<h2>Yeayyy 🥰💞<br>Saya officially ajak awak minum kopi nanti ☕✨</h2>";
+  createHearts();
+}
+
+function no2() {
+  document.body.innerHTML =
+  "<h2>Aik... buat saya nervous je tau 😅💓</h2>";
+}
+
+function createHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
