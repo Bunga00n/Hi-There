@@ -119,24 +119,14 @@ showContent(`
 <h2>Status awak sekarang...</h2>
 <p>Dah berpunya? Dah move on atau masih gamon?</p>
 <button class="btn-primary" onclick="question4()">Dah move on & Single</button>
-<button class="btn-secondary" onclick="endFlow('Soalan 3: Status sekarang','Masih teringat ex / tak ready')">Masih teringat ex/tak ready</button>
-`);
-}
-
-// QUESTION 4
-function question4(){
-showContent(`
-<h2>Jujur eh...</h2>
-<p>Awak masih berminat tak nak berkenalan dengan saya?</p>
-<button class="btn-primary" onclick="finalQuestion()">Masih berminat</button>
-<button class="btn-secondary" onclick="endFlow('Soalan 4: Berminat nak kenal?','Tak berminat')">Rasanya tak perlu kot</button>
+<button class="btn-secondary" onclick="endFlow('Soalan 3: Status sekarang','belum move on / tak ready')">Masih teringat ex/tak ready</button>
 `);
 }
 
 // FINAL QUESTION
 function finalQuestion(){
 showContent(`
-<h2>Alang-alang dah sampai sini...</h2>
+<h2>Okay nak tanya😁...</h2>
 <p>Nak iftar together tak?<br>Borak-borak 😊</p>
 <button class="btn-primary" onclick="goWhatsApp()">Nak!</button>
 <button class="btn-secondary" onclick="endFlow('Soalan Final: Ajakan Iftar','Tolak ajakan iftar')">Lain kali lah</button>
@@ -156,7 +146,7 @@ message="Terima kasih sebab jujur. Take care!";
 if(reason==="Ya, sedang kenal orang")
 message="Faham. Semoga urusan awak dipermudahkan. Bye!";
 
-if(reason==="Masih teringat ex / tak ready")
+if(reason==="belum ove on / tak ready")
 message="Baik, Fighting! ";
 
 if(reason==="Tak berminat")
