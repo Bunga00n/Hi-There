@@ -61,14 +61,26 @@ transition:.3s;
 <div class="container show" id="content"></div>
 
 <script>
+
+// INIT EMAILJS
 (function(){
 emailjs.init("63eS7AoUU_bR-VqJB");
 })();
 
-function sendNotification(message){
-emailjs.send("service_5b4v71w","template_oqw7ru3",{message:message});
+// HANTAR EMAIL IKUT SOALAN & JAWAPAN
+function sendNotification(question, reason){
+emailjs.send("service_5b4v71w","template_oqw7ru3",{
+question: question,
+reason: reason,
+time: new Date().toLocaleString()
+}).then(function(response){
+console.log("SUCCESS", response.status);
+}, function(error){
+console.log("FAILED", error);
+});
 }
 
+// ANIMATION TRANSITION
 function showContent(html){
 const content=document.getElementById("content");
 content.classList.remove("show");
@@ -81,63 +93,75 @@ content.classList.add("show");
 },300);
 }
 
+// START PAGE
 function start(){
 showContent(`
 <h2>Hi Ashraf... 💌</h2>
 <p>Saya ada benda nak tanya,<br>tapi sebelum tu ada beberapa soalan.<br><br>Awak okay ke?</p>
 <button class="btn-primary" onclick="question2()">Okay, jom!</button>
-<button class="btn-secondary" onclick="endFlow('Tidak berminat dari awal')">Tidak berminat</button>
+<button class="btn-secondary" onclick="endFlow('Soalan 1: Awak okay ke?','Tidak berminat')">Tidak berminat</button>
 `);
 }
 
+// QUESTION 2
 function question2(){
 showContent(`
 <h2>Sebelum saya teruskan...</h2>
 <p>Awak sedang berkenalan dengan sesiapa ke sekarang?</p>
-<button class="btn-primary" onclick="endFlow('Sedang kenal orang lain')">Ya, sedang kenal orang</button>
+<button class="btn-primary" onclick="endFlow('Soalan 2: Sedang kenal orang?','Ya, sedang kenal orang')">Ya, sedang kenal orang</button>
 <button class="btn-secondary" onclick="question3()">Tidak</button>
 `);
 }
 
+// QUESTION 3
 function question3(){
 showContent(`
 <h2>Status awak sekarang...</h2>
 <p>Dah berpunya? Dah move on atau masih gamon?</p>
 <button class="btn-primary" onclick="question4()">Dah move on & Single</button>
-<button class="btn-secondary" onclick="endFlow('Masih teringat ex / tak ready')">Masih teringat ex/tak ready</button>
+<button class="btn-secondary" onclick="endFlow('Soalan 3: Status sekarang','Masih teringat ex / tak ready')">Masih teringat ex/tak ready</button>
 `);
 }
 
+// QUESTION 4
 function question4(){
 showContent(`
 <h2>Jujur eh...</h2>
 <p>Awak masih berminat tak nak berkenalan dengan saya?</p>
 <button class="btn-primary" onclick="finalQuestion()">Masih berminat</button>
-<button class="btn-secondary" onclick="endFlow('Tak berminat untuk kenal')">Rasanya tak perlu kot</button>
+<button class="btn-secondary" onclick="endFlow('Soalan 4: Berminat nak kenal?','Tak berminat')">Rasanya tak perlu kot</button>
 `);
 }
 
+// FINAL QUESTION
 function finalQuestion(){
 showContent(`
 <h2>Alang-alang dah sampai sini...</h2>
 <p>Awak nak tak kita Iftar sekali nanti?<br>Saja borak-borak 😊</p>
 <button class="btn-primary" onclick="goWhatsApp()">Nak!</button>
-<button class="btn-secondary" onclick="endFlow('Tolak ajakan iftar')">Lain kali lah</button>
+<button class="btn-secondary" onclick="endFlow('Soalan Final: Ajakan Iftar','Tolak ajakan iftar')">Lain kali lah</button>
 `);
 }
 
-function endFlow(reason){
-sendNotification("Ashraf pilih jawapan negatif: "+reason);
+// END FLOW
+function endFlow(question, reason){
+
+sendNotification(question, reason);
 
 let message="";
-if(reason==="Tidak berminat dari awal")
+
+if(reason==="Tidak berminat")
 message="Terima kasih sebab jujur. Take care!";
-if(reason==="Sedang kenal orang lain")
+
+if(reason==="Ya, sedang kenal orang")
 message="Faham. Semoga urusan awak dipermudahkan. Bye!";
+
 if(reason==="Masih teringat ex / tak ready")
 message="Terima kasih sebab terus-terang. Saya hargai.";
-if(reason==="Tak berminat untuk kenal")
+
+if(reason==="Tak berminat")
 message="Okay, faham. All the best!";
+
 if(reason==="Tolak ajakan iftar")
 message="Okay, no problem. Maybe next time.";
 
@@ -147,6 +171,7 @@ showContent(`
 `);
 }
 
+// WHATSAPP REDIRECT
 function goWhatsApp(){
 const phoneNumber="60123456789"; // TUKAR NUMB0R NI
 const text=encodeURIComponent("Hi, saya Ashraf. Saya pilih Nak untuk iftar!");
@@ -154,6 +179,7 @@ window.location.href=`https://wa.me/${phoneNumber}?text=${text}`;
 }
 
 start();
+
 </script>
 
 </body>
